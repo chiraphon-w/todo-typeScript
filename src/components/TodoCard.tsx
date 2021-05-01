@@ -3,13 +3,14 @@ import {
   DeleteOutlined,
   CheckSquareOutlined,
 } from '@ant-design/icons';
-import { Card, Form, Input, Modal, Button } from 'antd';
+import { Card, Form, Input, Modal, Button, Typography } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { editState, todoState } from '@/components/recoil/atom';
 import { TodoProps } from '@/components/types/index';
 import { todoSearchState } from './recoil/selector';
+const { Text, Link } = Typography;
 
-const TodoCard = ({ onDelete, todo, onEdit }: any) => {
+const TodoCard = ({ onDelete, onCheck, onEdit }: any) => {
   const [todoList, setTodoList] = useRecoilState(todoState);
   const { Meta } = Card;
   const [modalActiveEdit, setModalActiveEdit] = useRecoilState(editState);
@@ -20,13 +21,16 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
     setModalActiveEdit(false);
   };
 
-  const deleteTodo = (todo: TodoProps) => {
+  const handleDlete = (todo: TodoProps) => {
     onDelete(todo);
   };
 
-  const onEditSubmit = (values: { title: string; id: number }) => {
+  const handleEidt = (values: { title: string; id: number }) => {
     onEdit(values.id, values.title);
     setModalActiveEdit(false);
+  };
+  const handleCheck = (todo: TodoProps) => {
+    onCheck(todo);
   };
 
   return (
@@ -45,7 +49,7 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
             ]}
           >
             <Form
-              onFinish={onEditSubmit}
+              onFinish={handleEidt}
               form={form}
               layout='inline'
               id='myForm'
@@ -68,7 +72,10 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
             key={todo.id}
             className='my-4'
             actions={[
-              <CheckSquareOutlined key='check' onClick={() => {}} />,
+              <CheckSquareOutlined
+                key='check'
+                onClick={() => handleCheck(todo)}
+              />,
               <EditOutlined
                 key='edit'
                 onClick={() => {
@@ -79,10 +86,15 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
                   });
                 }}
               />,
-              <DeleteOutlined key='delete' onClick={() => deleteTodo(todo)} />,
+              <DeleteOutlined key='delete' onClick={() => handleDlete(todo)} />,
             ]}
           >
-            <Meta title={todo.value} description={todo.date} />
+            <Meta
+              title={
+                todo.completed ? <Text delete type="secondary">{todo.value}</Text> : todo.value
+              }
+              description={todo.date}
+            />
           </Card>
         );
       })}

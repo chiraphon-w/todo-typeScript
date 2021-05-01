@@ -5,6 +5,7 @@ import { TodoFormProps } from '@/components/types/index';
 
 const TodoForm: React.FC<TodoFormProps> = ({ addTodo, search, type }) => {
   const [form] = Form.useForm();
+
   const onHandleAdd = (values: { title: string }) => {
     if (!!addTodo) addTodo(values.title);
     form.resetFields();
@@ -24,7 +25,11 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo, search, type }) => {
         <Form.Item
           label={type === 'add' ? 'ADD TODO' : 'SEARCH TODO'}
           name='title'
-          rules={type === 'add' ? [{ required: true, message: 'Please Enter Text' }] : [{ required: false}]}
+          rules={
+            type === 'add'
+              ? [{ required: true, message: 'Please Enter Text' }]
+              : [{ required: false }]
+          }
         >
           <Input placeholder='Enter text' />
         </Form.Item>

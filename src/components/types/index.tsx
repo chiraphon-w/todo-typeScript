@@ -1,6 +1,6 @@
 export interface TodoProps {
   id: number;
-  status: boolean;
+  completed: boolean;
   value: string;
   date: string;
 }

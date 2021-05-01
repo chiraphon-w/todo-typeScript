@@ -1,4 +1,4 @@
-import { Typography } from 'antd';
+import { Typography, Select } from 'antd';
 import TodoForm from '@/components/TodoForm';
 import React, { useState } from 'react';
 import TodoCard from '@/components/TodoCard';
@@ -13,7 +13,7 @@ export default function Home() {
   const [todoList, setTodoList] = useRecoilState(todoState);
   // const totalTodo = useRecoilValue(totalState);
   const [inputSearch, setInputSearch] = useRecoilState(inputSearchState);
- 
+  const { Option } = Select;
   const dateTime = () => {
     let realTime: string;
     let d = new Date();
@@ -40,7 +40,7 @@ export default function Home() {
     const id = Math.floor(Math.random() * 10000) + 1;
     const data = {
       id,
-      status: false,
+      completed: false,
       value,
       date: dateTime(),
     };
@@ -51,6 +51,24 @@ export default function Home() {
   const deleteTodo = (todo: TodoProps) => {
     if (todoList.length > 0) {
       setTodoList(todoList.filter((todoFilter) => todoFilter.id !== todo.id));
+    }
+  };
+
+  const checkTodo = (todo: TodoProps) => {
+    if (todoList.length > 0) {
+      // setTodoList(todoList.filter((todoFilter) => todoFilter.id !== todo.id));
+
+      setTodoList(
+        todoList.map((item) => {
+          if (item.id === todo.id) {
+            return {
+              ...item,
+              completed: !item.completed,
+            };
+          }
+          return item;
+        })
+      );
     }
   };
 
@@ -66,6 +84,10 @@ export default function Home() {
     setTodoList(newData);
   };
 
+  function handleChange(value: string) {
+    console.log(`selected ${value}`);
+  }
+
   return (
     <>
       <div className='w-full max-w-4xl mx-auto p-5'>
@@ -74,7 +96,16 @@ export default function Home() {
           <TodoForm addTodo={addTodo} type={'add'} />
           <TodoForm search={search} type={'search'} />
         </div>
-        <TodoCard onDelete={deleteTodo} onEdit={editTodo} />
+        <Select
+          defaultValue='lucy'
+          style={{ width: 120 }}
+          onChange={handleChange}
+        >
+          <Option value='all'>All</Option>
+          <Option value='completed'>Complete</Option>
+          <Option value='uncompleted'>Uncomplet</Option>
+        </Select>
+        <TodoCard onDelete={deleteTodo} onEdit={editTodo} onCheck={checkTodo} />
       </div>
     </>
   );
