@@ -30,8 +30,8 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
   };
 
   const onEditSubmit = (values: { title: string; id: number }) => {
-    // onEdit(values.id, values.title);
-    console.log('values : ', values);
+  onEdit(values.id, values.title);
+    setModalActiveEdit(false);
   };
 
   return (
@@ -44,7 +44,7 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
             onCancel={handleCancel}
             footer={[
               <Button form='myForm' key='submit' htmlType='submit'>
-                Submit
+                ADD
               </Button>,
             ]}
           >
@@ -55,10 +55,12 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
               id='myForm'
               initialValues={{ remember: todo.value }}
             >
-              <Form.Item label='Edit Todo' name='id'>
+              <Form.Item name='id'>
+                <Input placeholder='Enter text' type='hidden' />
+              </Form.Item>
+              <Form.Item label='Edit Todo' name='title'>
                 <Input placeholder='Enter text' />
               </Form.Item>
-              {/* <Form.Item name='id'></Form.Item> */}
             </Form>
           </Modal>
         );

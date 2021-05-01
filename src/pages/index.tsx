@@ -15,7 +15,7 @@ export default function Home() {
   const totalTodo = useRecoilValue(totalState);
   const [inputSearch, setInputSearch] = useRecoilState(inputSearchState);
   const todoSearch = useRecoilValue(todoSearchState);
-
+ 
   const dateTime = () => {
     let realTime: string;
     let d = new Date();
@@ -56,17 +56,16 @@ export default function Home() {
   };
 
   const editTodo = (newId: number, newValue: string) => {
-    let newTodos: [];
-    console.log('edit ', newId, ':', newValue);
-    todos.map((data) => {
+    const temp = _.cloneDeep(todos);
+    const newData = temp.map((data) => {
       if (data.id === newId) {
         data.value = newValue;
         data.date = dateTime();
       }
-      newTodos.push(data);
+      return data;
     });
-
-    setTodos(newTodos);
+    console.log("xx ",newData);
+    setTodos(newData);
   };
   console.log('test ', todos);
 
@@ -78,7 +77,6 @@ export default function Home() {
           <TodoForm addTodo={addTodo} type={'add'} />
           <TodoForm search={search} type={'search'} />
         </div>
-        {/* {todoSearch} */}
         <TodoCard onDelete={deleteTodo} onEdit={editTodo} />
       </div>
     </>
