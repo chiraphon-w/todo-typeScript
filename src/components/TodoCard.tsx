@@ -4,7 +4,7 @@ import {
   CheckSquareOutlined,
 } from '@ant-design/icons';
 import { Card, Form, Input, Modal, Button } from 'antd';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   editState,
   inputSearchState,
@@ -20,7 +20,7 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
   const [modalActiveEdit, setModalActiveEdit] = useRecoilState(editState);
   const [form] = Form.useForm();
   const [inputSearch, setInputSearch] = useRecoilState(inputSearchState);
-
+  const todoSearch = useRecoilValue(todoSearchState);
   const handleCancel = () => {
     setModalActiveEdit(false);
   };
@@ -30,7 +30,8 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
   };
 
   const onEditSubmit = (values: { title: string; id: number }) => {
-    onEdit(values.id, values.title);
+    // onEdit(values.id, values.title);
+    console.log('values : ', values);
   };
 
   return (
@@ -52,17 +53,18 @@ const TodoCard = ({ onDelete, todo, onEdit }: any) => {
               form={form}
               layout='vertical'
               id='myForm'
+              initialValues={{ remember: todo.value }}
             >
-              <Form.Item label='Edit Todo' name='title'>
-                <Input placeholder='Enter text' defaultValue={todo.value} />
+              <Form.Item label='Edit Todo' name='id'>
+                <Input placeholder='Enter text' />
               </Form.Item>
-              <Form.Item name='id'></Form.Item>
+              {/* <Form.Item name='id'></Form.Item> */}
             </Form>
           </Modal>
         );
       })}
 
-      {todos.map((todo: TodoProps) => {
+      {todoSearch.map((todo: TodoProps) => {
         return (
           <Card
             key={todo.id}

@@ -1,4 +1,4 @@
-import {Typography } from 'antd';
+import { Typography } from 'antd';
 import TodoForm from '@/components/TodoForm';
 import React, { useState } from 'react';
 import TodoCard from '@/components/TodoCard';
@@ -7,6 +7,7 @@ import { inputSearchState, todoState } from '@/components/recoil/atom';
 import { todoSearchState, totalState } from '@/components/recoil/selector';
 import { TodoProps } from '@/components/types/index';
 // import { stringify } from 'node:querystring';
+import _ from 'lodash';
 
 export default function Home() {
   const { Title } = Typography;
@@ -77,7 +78,7 @@ export default function Home() {
           <TodoForm addTodo={addTodo} type={'add'} />
           <TodoForm search={search} type={'search'} />
         </div>
-        {todoSearch}
+        {/* {todoSearch} */}
         <TodoCard onDelete={deleteTodo} onEdit={editTodo} />
       </div>
     </>

@@ -22,18 +22,18 @@ export const totalState = selector({
 export const todoSearchState = selector({
   key: 'todoSearch',
   get: ({ get }) => {
-    const todo = get(todoState);
+    const todos = get(todoState);
     const todoSearch = get(inputSearchState);
     console.log(todoSearch);
     let searchData;
     if (todoSearch !== '') {
-      searchData = todo.filter((search) => {
-        return search.value.includes(todoSearch);
+      searchData = todos.filter((todo) => {
+        return todo.value.includes(todoSearch);
       });
     } else {
-      searchData = todo;
+      searchData = todos;
     }
     console.log('searchData : ', searchData);
-    return JSON.stringify(searchData);
+    return searchData;
   },
 });
