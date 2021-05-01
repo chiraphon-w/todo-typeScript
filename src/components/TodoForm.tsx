@@ -19,9 +19,12 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo, search, type }) => {
       <Form
         onFinish={type === 'add' ? onHandleAdd : onHandleSearch}
         form={form}
-        layout='vertical'
+        layout='inline'
       >
-        <Form.Item label={type === 'add' ? 'ADD TODO' : 'SEARCH TODO'} name='title'>
+        <Form.Item
+          label={type === 'add' ? 'ADD TODO' : 'SEARCH TODO'}
+          name='title'
+        >
           <Input placeholder='Enter text' />
         </Form.Item>
         <Form.Item>

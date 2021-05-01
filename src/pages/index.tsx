@@ -49,6 +49,7 @@ export default function Home() {
 
     setTodos([...todos, data]);
   };
+
   const deleteTodo = (todo: TodoProps) => {
     if (todos.length > 0) {
       setTodos(todos.filter((todoFilter) => todoFilter.id !== todo.id));
@@ -64,16 +65,14 @@ export default function Home() {
       }
       return data;
     });
-    console.log("xx ",newData);
     setTodos(newData);
   };
-  console.log('test ', todos);
 
   return (
     <>
-      <div className='w-100 max-w-4xl mx-auto p-5'>
+      <div className='w-full max-w-4xl mx-auto p-5'>
         <h1 className='text-4xl font-bold'>TodoList</h1>
-        <div className='flex'>
+        <div className='flex p-5'>
           <TodoForm addTodo={addTodo} type={'add'} />
           <TodoForm search={search} type={'search'} />
         </div>
