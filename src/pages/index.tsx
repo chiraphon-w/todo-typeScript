@@ -4,17 +4,15 @@ import React, { useState } from 'react';
 import TodoCard from '@/components/TodoCard';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { inputSearchState, todoState } from '@/components/recoil/atom';
-import { todoSearchState, totalState } from '@/components/recoil/selector';
+import { totalState } from '@/components/recoil/selector';
 import { TodoProps } from '@/components/types/index';
-// import { stringify } from 'node:querystring';
 import _ from 'lodash';
 
 export default function Home() {
-  const { Title } = Typography;
-  const [todos, setTodos] = useRecoilState(todoState);
-  const totalTodo = useRecoilValue(totalState);
+  // const { Title } = Typography;
+  const [todoList, setTodoList] = useRecoilState(todoState);
+  // const totalTodo = useRecoilValue(totalState);
   const [inputSearch, setInputSearch] = useRecoilState(inputSearchState);
-  const todoSearch = useRecoilValue(todoSearchState);
  
   const dateTime = () => {
     let realTime: string;
@@ -47,17 +45,17 @@ export default function Home() {
       date: dateTime(),
     };
 
-    setTodos([...todos, data]);
+    setTodoList([...todoList, data]);
   };
 
   const deleteTodo = (todo: TodoProps) => {
-    if (todos.length > 0) {
-      setTodos(todos.filter((todoFilter) => todoFilter.id !== todo.id));
+    if (todoList.length > 0) {
+      setTodoList(todoList.filter((todoFilter) => todoFilter.id !== todo.id));
     }
   };
 
   const editTodo = (newId: number, newValue: string) => {
-    const temp = _.cloneDeep(todos);
+    const temp = _.cloneDeep(todoList);
     const newData = temp.map((data) => {
       if (data.id === newId) {
         data.value = newValue;
@@ -65,7 +63,7 @@ export default function Home() {
       }
       return data;
     });
-    setTodos(newData);
+    setTodoList(newData);
   };
 
   return (

@@ -24,6 +24,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo, search, type }) => {
         <Form.Item
           label={type === 'add' ? 'ADD TODO' : 'SEARCH TODO'}
           name='title'
+          rules={type === 'add' ? [{ required: true, message: 'Please Enter Text' }] : [{ required: false}]}
         >
           <Input placeholder='Enter text' />
         </Form.Item>
