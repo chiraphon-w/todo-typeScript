@@ -18,7 +18,7 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
   const [todoList, setTodoList] = useRecoilState(todoState);
   const { Meta } = Card;
   const [modalActiveEdit, setModalActiveEdit] = useRecoilState(editState);
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
   const todoSearch = useRecoilValue(todoSearchState);
   const [modalEditContent, setModalEditContent] = useState<JSX.Element>();
 
@@ -63,10 +63,10 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
                 onClick={() => {
                   setModalActiveEdit(true);
                   handleEidt(todo);
-                  form.setFieldsValue({
-                    title: todo.value,
-                    id: todo.id,
-                  });
+                  // form.setFieldsValue({
+                  //   title: todo.value,
+                  //   id: todo.id,
+                  // });
                 }}
               />,
               <DeleteOutlined key='delete' onClick={() => handleDlete(todo)} />,

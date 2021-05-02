@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { Input, Button, Form, Modal } from 'antd';
+import React, { useEffect } from 'react';
+import { Input, Button, Form, Modal, Space } from 'antd';
 import { editState } from './recoil/atom';
 import { useRecoilState } from 'recoil';
 import { TodoEditProps } from '@/components/types/index';
-import TodoForm from '@/components/TodoForm';
 
 const EditTodo = ({ todo, onEdit }: TodoEditProps) => {
   const [modalActiveEdit, setModalActiveEdit] = useRecoilState(editState);
@@ -33,9 +32,14 @@ const EditTodo = ({ todo, onEdit }: TodoEditProps) => {
         visible={modalActiveEdit}
         footer={null}
         onCancel={handleCancel}
-        forceRender
       >
-        <Form form={form} onFinish={editTodo} layout='inline' className='justify-center'>
+        <Form
+          id='myForm'
+          form={form}
+          onFinish={editTodo}
+          layout='inline'
+          style={{ justifyContent: 'center' }}
+        >
           <Form.Item
             name='title'
             rules={[{ required: true, message: 'Please Enter Text' }]}
