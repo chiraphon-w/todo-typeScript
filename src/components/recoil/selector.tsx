@@ -1,5 +1,9 @@
 import { selector } from 'recoil'; //เอาค่าจาก atom มาคำนวณ
-import { todoState, inputSearchState } from './atom';
+import {
+  todoState,
+  inputSearchState,
+  isSelectState,
+} from './atom';
 
 export const totalState = selector({
   key: 'total',
@@ -22,34 +26,31 @@ export const totalState = selector({
 export const todoSearchState = selector({
   key: 'todoSearch',
   get: ({ get }) => {
-    const todos = get(todoState);
+    const todoList = get(todoState);
     const todoSearch = get(inputSearchState);
-    let searchData;
+    const selectStatus = get(isSelectState);
+    console.log('selectStatus : ', selectStatus);
+
+    let searchData = todoList;
+    if (selectStatus === 'completed') {
+      console.log('xxx');
+      searchData = todoList.filter((todo) => {
+        return todo.completed === true;
+      });
+    }
+    if (selectStatus === 'uncompleted') {
+      searchData = todoList.filter((todo) => {
+        return todo.completed === false;
+      });
+    }
     if (todoSearch !== '') {
-      searchData = todos.filter((todo) => {
+      searchData = searchData.filter((todo) => {
         return todo.value.includes(todoSearch);
       });
-    } else {
-      searchData = todos;
     }
-    console.log('searchData : ', searchData);
+ 
+
+    console.log('searchData ja: ', searchData);
     return searchData;
   },
 });
-
-// export const todoStatusState = selector({
-//   key: 'todoStatus',
-//   get: ({ get }) => {
-//     const todos = get(todoState);
-//     let status;
-//     if (todos !== []) {
-//       status = todos.filter((todo) => {
-//         return todo.value.includes(todoSearch);
-//       });
-//     } else {
-//       searchData = todos;
-//     }
-//     console.log('searchData : ', searchData);
-//     return searchData;
-//   },
-// });

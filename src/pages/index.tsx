@@ -3,14 +3,20 @@ import TodoForm from '@/components/TodoForm';
 import React, { useState } from 'react';
 import TodoCard from '@/components/TodoCard';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { inputSearchState, todoState } from '@/components/recoil/atom';
+import {
+  inputSearchState,
+  isSelectState,
+  todoState,
+} from '@/components/recoil/atom';
 import { totalState } from '@/components/recoil/selector';
 import { TodoProps } from '@/components/types/index';
-import _ from 'lodash';
+
 
 export default function Home() {
   // const { Title } = Typography;
   const [todoList, setTodoList] = useRecoilState(todoState);
+  const [select, setSelect] = useRecoilState(isSelectState);
+
   // const totalTodo = useRecoilValue(totalState);
   const [inputSearch, setInputSearch] = useRecoilState(inputSearchState);
   const { Option } = Select;
@@ -56,8 +62,6 @@ export default function Home() {
 
   const checkTodo = (todo: TodoProps) => {
     if (todoList.length > 0) {
-      // setTodoList(todoList.filter((todoFilter) => todoFilter.id !== todo.id));
-
       setTodoList(
         todoList.map((item) => {
           if (item.id === todo.id) {
@@ -72,20 +76,11 @@ export default function Home() {
     }
   };
 
-  const editTodo = (newId: number, newValue: string) => {
-    const temp = _.cloneDeep(todoList);
-    const newData = temp.map((data) => {
-      if (data.id === newId) {
-        data.value = newValue;
-        data.date = dateTime();
-      }
-      return data;
-    });
-    setTodoList(newData);
-  };
+ 
 
   function handleChange(value: string) {
-    console.log(`selected ${value}`);
+    console.log(`selected : ${value}`);
+    setSelect(value);
   }
 
   return (
@@ -97,7 +92,7 @@ export default function Home() {
           <TodoForm search={search} type={'search'} />
         </div>
         <Select
-          defaultValue='lucy'
+          defaultValue='All'
           style={{ width: 120 }}
           onChange={handleChange}
         >
@@ -105,7 +100,7 @@ export default function Home() {
           <Option value='completed'>Complete</Option>
           <Option value='uncompleted'>Uncomplet</Option>
         </Select>
-        <TodoCard onDelete={deleteTodo} onEdit={editTodo} onCheck={checkTodo} />
+        <TodoCard onDelete={deleteTodo} onCheck={checkTodo} />
       </div>
     </>
   );

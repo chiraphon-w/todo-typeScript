@@ -1,53 +1,77 @@
-import React, { useState } from 'react';
-import { Input, Button, Form } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
-import { TodoProps } from './types';
+import React, { useEffect, useRef } from 'react';
+import { Input, Button, Form, Modal } from 'antd';
+import { editState } from './recoil/atom';
+import { useRecoilState } from 'recoil';
+import { TodoEditProps } from '@/components/types/index';
 
-interface TodoFormProps {
-  onEditSubmit: (todo: TodoProps) => void;
-}
-const EditTodo: React.FC<TodoFormProps> = ({ onEditSubmit }) => {
-  const [visible, setVisible] = React.useState(false);
-  const [confirmLoading, setConfirmLoading] = React.useState(false);
-  const [modalText, setModalText] = React.useState('Content of the modal');
+const EditTodo = ({ todo, onEdit }: TodoEditProps) => {
+  const [modalActiveEdit, setModalActiveEdit] = useRecoilState(editState);
   const [form] = Form.useForm();
-  const showModal = () => {
-    setVisible(true);
-  };
+  const formRef = useRef(null);
 
-  const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
+  // const [form] = Form.useForm({ forceFormElementConnection: false });
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setVisible(false);
+    setModalActiveEdit(false);
   };
+
+  const onEditSubmit = (values: { title: string }) => {
+    onEdit(todo.id, values.title);
+    console.log('values : ', values);
+
+    setModalActiveEdit(false);
+  };
+
+  useEffect(() => {
+    form.setFieldsValue({
+      title: todo.value,
+    });
+  }, [todo.value]);
+
+
 
   return (
     <>
-      <Form form={form} layout='vertical'>
-        <Form.Item
-          label='Todo'
-          name='title'
-          //   required
-          //   tooltip='This is a required field'
-        >
-          <Input placeholder='input placeholder' />
-        </Form.Item>
-        <Form.Item>
-          <Button htmlType='submit' type='primary'>
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+      <Modal
+        title='Edit'
+        visible={modalActiveEdit}
+        footer={null}
+        onCancel={handleCancel}
+
+      >
+        <Form form={form} onFinish={onEditSubmit} layout='inline'>
+          <Form.Item name='title'>
+            <Input placeholder='Enter text'/>
+          </Form.Item>
+          <Form.Item>
+            <Button type='primary' htmlType='submit'>
+              Edit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   );
 };
+
+// <Form name="basic" className="flex mt-5" onFinish={handleType} form={form}>
+//       <Form.Item
+//         label={`${type} todo`}
+//         name="addTodo"
+//         className={"mx-5"}
+//         rules={[
+//           {
+//             required: type !== "Search",
+//             message: "Please input todo!",
+//           },
+//         ]}
+//       >
+//         <Input
+//           className={"w-full px-2.5 py-1 border focus:outline-none rounded-md"}
+//         />
+//       </Form.Item>
+//       <Form.Item>
+//         <Button type="primary" htmlTyp
+//   footer={null}
 
 export default EditTodo;

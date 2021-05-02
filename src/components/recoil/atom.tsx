@@ -20,3 +20,8 @@ export const inputSearchState = atom<string>({
   key: 'inputSearch',
   default: '',
 });
+
+export const isSelectState = atom({
+  key: 'isSelect',
+  default: '',
+});

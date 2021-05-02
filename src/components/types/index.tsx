@@ -10,3 +10,8 @@ export interface TodoFormProps {
   search?: (value: string) => void;
   type: string;
 }
+
+export interface TodoEditProps {
+  todo: TodoProps;
+  onEdit: (newId: number, newValue: string) => void;
+}
