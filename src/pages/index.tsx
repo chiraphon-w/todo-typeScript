@@ -10,29 +10,16 @@ import {
 } from '@/components/recoil/atom';
 import { totalState } from '@/components/recoil/selector';
 import { TodoProps } from '@/components/types/index';
+import dateTime from '@/components/dateTime';
 
 
 export default function Home() {
-  // const { Title } = Typography;
   const [todoList, setTodoList] = useRecoilState(todoState);
   const [select, setSelect] = useRecoilState(isSelectState);
 
-  // const totalTodo = useRecoilValue(totalState);
   const [inputSearch, setInputSearch] = useRecoilState(inputSearchState);
   const { Option } = Select;
-  const dateTime = () => {
-    let realTime: string;
-    let d = new Date();
-    let ye = new Intl.DateTimeFormat('en', { year: '2-digit' }).format(d);
-    let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
-    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-    let hms = new Intl.DateTimeFormat('en', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    }).format(d);
-    return (realTime = `Add on ${mo} ${da}, ${ye}, ${hms}`);
-  };
+  
 
   const search = (value: string) => {
     setInputSearch(value);

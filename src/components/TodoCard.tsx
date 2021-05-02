@@ -11,6 +11,7 @@ import { todoSearchState } from './recoil/selector';
 import { useState } from 'react';
 import EditTodo from '@/components/EditTodo';
 import _ from 'lodash';
+import dateTime from './dateTime';
 
 const { Text, Link } = Typography;
 
@@ -22,6 +23,7 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
   const todoSearch = useRecoilValue(todoSearchState);
   const [modalEditContent, setModalEditContent] = useState<JSX.Element>();
 
+  
   const handleCancel = () => {
     setModalActiveEdit(false);
   };
@@ -45,6 +47,7 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
     const newData = temp.map((data) => {
       if (data.id === newId) {
         data.value = newValue;
+        data.date = dateTime();
         // data.date = dateTime();
       }
       return data;
