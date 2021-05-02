@@ -7,7 +7,7 @@ export interface TodoProps {
 
 export interface TodoFormProps {
   addTodo?: (value: string) => void;
-  search?: (value: string) => void;
+  searchTodo?: (value: string) => void;
   type: string;
 }
 

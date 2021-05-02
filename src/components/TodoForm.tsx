@@ -3,16 +3,18 @@ import { Form, Input, Button, Radio } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { TodoFormProps } from '@/components/types/index';
 
-const TodoForm: React.FC<TodoFormProps> = ({ addTodo, search, type }) => {
+const TodoForm: React.FC<TodoFormProps> = ({ addTodo, searchTodo, type }) => {
   const [form] = Form.useForm();
 
   const onHandleAdd = (values: { title: string }) => {
-    if (!!addTodo) addTodo(values.title);
+    if (!!addTodo){
+      addTodo(values.title);
+    } 
     form.resetFields();
   };
 
   const onHandleSearch = (values: { title: string }) => {
-    if (!!search) search(values.title);
+    if (!!searchTodo) searchTodo(values.title);
   };
 
   return (

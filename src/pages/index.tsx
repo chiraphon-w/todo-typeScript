@@ -21,7 +21,7 @@ export default function Home() {
   const { Option } = Select;
   
 
-  const search = (value: string) => {
+  const searchTodo = (value: string) => {
     setInputSearch(value);
     console.log('value', value);
     if (value === '') {
@@ -76,16 +76,16 @@ export default function Home() {
         <h1 className='text-4xl font-bold'>TodoList</h1>
         <div className='flex p-5'>
           <TodoForm addTodo={addTodo} type={'add'} />
-          <TodoForm search={search} type={'search'} />
+          <TodoForm searchTodo={searchTodo} type={'search'} />
         </div>
         <Select
           defaultValue='All'
-          style={{ width: 120 }}
+          style={{ width: 140 }}
           onChange={handleChange}
         >
           <Option value='all'>All</Option>
           <Option value='completed'>Complete</Option>
-          <Option value='uncompleted'>Uncomplet</Option>
+          <Option value='uncompleted'>Uncompleted</Option>
         </Select>
         <TodoCard onDelete={deleteTodo} onCheck={checkTodo} />
       </div>

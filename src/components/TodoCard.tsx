@@ -13,9 +13,8 @@ import EditTodo from '@/components/EditTodo';
 import _ from 'lodash';
 import dateTime from './dateTime';
 
-const { Text, Link } = Typography;
-
 const TodoCard = ({ onDelete, onCheck }: any) => {
+  const { Text, Link } = Typography;
   const [todoList, setTodoList] = useRecoilState(todoState);
   const { Meta } = Card;
   const [modalActiveEdit, setModalActiveEdit] = useRecoilState(editState);
@@ -23,20 +22,11 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
   const todoSearch = useRecoilValue(todoSearchState);
   const [modalEditContent, setModalEditContent] = useState<JSX.Element>();
 
-  
-  const handleCancel = () => {
-    setModalActiveEdit(false);
-  };
-
   const handleDlete = (todo: TodoProps) => {
     onDelete(todo);
   };
-
   const handleEidt = (todo: TodoProps) => {
-    
     setModalEditContent(<EditTodo todo={todo} onEdit={editTodo}/>);
-    // onEdit(values.id, values.title);
-    // setModalActiveEdit(false);
   };
   const handleCheck = (todo: TodoProps) => {
     onCheck(todo);
@@ -58,8 +48,6 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
 
   return (
     <>
-      
-
       {todoSearch.map((todo: TodoProps) => {
         return (
           <Card
@@ -100,7 +88,6 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
         );
       })}
       {modalEditContent}
-
     </>
   );
 };

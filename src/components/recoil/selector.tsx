@@ -8,7 +8,6 @@ import {
 export const totalState = selector({
   key: 'total',
   get: ({ get }) => {
-    // console.log("xx ", get(todoState));
     const totalTodo = get(todoState); //เอาค่าจาก todoState มา
     const completed = totalTodo.filter((data) => {
       return data.completed === false;

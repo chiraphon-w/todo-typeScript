@@ -3,21 +3,19 @@ import { Input, Button, Form, Modal } from 'antd';
 import { editState } from './recoil/atom';
 import { useRecoilState } from 'recoil';
 import { TodoEditProps } from '@/components/types/index';
+import TodoForm from '@/components/TodoForm';
 
 const EditTodo = ({ todo, onEdit }: TodoEditProps) => {
   const [modalActiveEdit, setModalActiveEdit] = useRecoilState(editState);
   const [form] = Form.useForm();
-  const formRef = useRef(null);
-
-  // const [form] = Form.useForm({ forceFormElementConnection: false });
 
   const handleCancel = () => {
     setModalActiveEdit(false);
   };
 
-  const onEditSubmit = (values: { title: string }) => {
+  const editTodo = (values: { title: string }) => {
     onEdit(todo.id, values.title);
-    console.log('values : ', values);
+    console.log('values : ', values.title);
 
     setModalActiveEdit(false);
   };
@@ -28,20 +26,21 @@ const EditTodo = ({ todo, onEdit }: TodoEditProps) => {
     });
   }, [todo.value]);
 
-
-
   return (
     <>
       <Modal
-        title='Edit'
+        title='Edit Todo'
         visible={modalActiveEdit}
         footer={null}
         onCancel={handleCancel}
-
+        forceRender
       >
-        <Form form={form} onFinish={onEditSubmit} layout='inline'>
-          <Form.Item name='title'>
-            <Input placeholder='Enter text'/>
+        <Form form={form} onFinish={editTodo} layout='inline' className='justify-center'>
+          <Form.Item
+            name='title'
+            rules={[{ required: true, message: 'Please Enter Text' }]}
+          >
+            <Input style={{ width: 380 }} placeholder='Enter text' />
           </Form.Item>
           <Form.Item>
             <Button type='primary' htmlType='submit'>
@@ -53,25 +52,5 @@ const EditTodo = ({ todo, onEdit }: TodoEditProps) => {
     </>
   );
 };
-
-// <Form name="basic" className="flex mt-5" onFinish={handleType} form={form}>
-//       <Form.Item
-//         label={`${type} todo`}
-//         name="addTodo"
-//         className={"mx-5"}
-//         rules={[
-//           {
-//             required: type !== "Search",
-//             message: "Please input todo!",
-//           },
-//         ]}
-//       >
-//         <Input
-//           className={"w-full px-2.5 py-1 border focus:outline-none rounded-md"}
-//         />
-//       </Form.Item>
-//       <Form.Item>
-//         <Button type="primary" htmlTyp
-//   footer={null}
 
 export default EditTodo;
