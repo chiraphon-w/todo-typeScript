@@ -45,7 +45,7 @@ const EditTodo = ({ todo, onEdit }: TodoEditProps) => {
             <Input style={{ width: 380 }} placeholder='Enter text' />
           </Form.Item>
           <Form.Item>
-            <Button type='primary' htmlType='submit'>
+            <Button type='dashed' htmlType='submit'>
               Edit
             </Button>
           </Form.Item>

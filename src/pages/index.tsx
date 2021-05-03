@@ -92,7 +92,7 @@ export default function Home() {
           onChange={handleChange}
         >
           <Option value='all'>All</Option>
-          <Option value='completed'>Complete</Option>
+          <Option value='completed'>Completed</Option>
           <Option value='uncompleted'>Uncompleted</Option>
         </Select>
 

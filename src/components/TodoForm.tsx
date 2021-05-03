@@ -44,11 +44,11 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo, searchTodo, type }) => {
         </Form.Item>
         <Form.Item>
           {type === 'add' ? (
-            <Button htmlType='submit' type='primary'>
+            <Button htmlType='submit' type='dashed'>
               ADD
             </Button>
           ) : (
-            <Button htmlType='submit' type='primary' icon={<SearchOutlined />}>
+            <Button htmlType='submit' type='dashed' icon={<SearchOutlined />}>
               SEARCH
             </Button>
           )}

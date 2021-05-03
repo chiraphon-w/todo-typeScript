@@ -3,13 +3,13 @@ import {
   DeleteOutlined,
   CheckSquareOutlined,
 } from '@ant-design/icons';
-import { Card, Form, Input, Modal, Button, Typography } from 'antd';
+import { Card, Typography } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { editState, todoState } from '@/components/recoil/atom';
 import { TodoProps } from '@/components/types/index';
 import { todoSearchState } from './recoil/selector';
 import { useState } from 'react';
-import EditTodo from '@/components/EditTodo';
+import TodoEdit from '@/components/TodoEdit';
 import _ from 'lodash';
 import dateTime from './dateTime';
 
@@ -25,7 +25,7 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
     onDelete(todo);
   };
   const handleEidt = (todo: TodoProps) => {
-    setModalEditContent(<EditTodo todo={todo} onEdit={editTodo} />);
+    setModalEditContent(<TodoEdit todo={todo} onEdit={editTodo} />);
   };
   const handleCheck = (todo: TodoProps) => {
     onCheck(todo);
@@ -37,7 +37,6 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
       if (data.id === newId) {
         data.value = newValue;
         data.date = dateTime();
-        // data.date = dateTime();
       }
       return data;
     });
