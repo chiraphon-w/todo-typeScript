@@ -106,8 +106,8 @@ export default function Home() {
           Clear Search
         </Button>
         <Text>
-          Total Todo : {JSON.stringify(totalTodo.total)} | Completed :{' '}
-          {JSON.stringify(totalTodo.completed)} | Uncompleted :{' '}
+          Total Todo : {JSON.stringify(totalTodo.total)} | Total Completed :{' '}
+          {JSON.stringify(totalTodo.completed)} | Total Uncompleted :{' '}
           {JSON.stringify(totalTodo.uncompleted)}
         </Text>
         <TodoCard onDelete={deleteTodo} onCheck={checkTodo} />
