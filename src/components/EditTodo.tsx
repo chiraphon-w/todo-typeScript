@@ -14,8 +14,6 @@ const EditTodo = ({ todo, onEdit }: TodoEditProps) => {
 
   const editTodo = (values: { title: string }) => {
     onEdit(todo.id, values.title);
-    console.log('values : ', values.title);
-
     setModalActiveEdit(false);
   };
 

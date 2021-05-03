@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Radio } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { TodoFormProps } from '@/components/types/index';
+import { useRecoilState } from 'recoil';
+import { clearSearchState } from './recoil/atom';
 
 const TodoForm: React.FC<TodoFormProps> = ({ addTodo, searchTodo, type }) => {
   const [form] = Form.useForm();
+  const [clearSearch, setClearSearch] = useRecoilState(clearSearchState);
 
   const onHandleAdd = (values: { title: string }) => {
-    if (!!addTodo){
+    if (!!addTodo) {
       addTodo(values.title);
-    } 
+    }
     form.resetFields();
   };
+
+  useEffect(() => {
+    form.resetFields();
+  }, [clearSearch]);
 
   const onHandleSearch = (values: { title: string }) => {
     if (!!searchTodo) searchTodo(values.title);
@@ -36,9 +43,15 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo, searchTodo, type }) => {
           <Input placeholder='Enter text' />
         </Form.Item>
         <Form.Item>
-          <Button htmlType='submit' type='primary'>
-            {type === 'add' ? 'ADD' : 'SEARCH'}
-          </Button>
+          {type === 'add' ? (
+            <Button htmlType='submit' type='primary'>
+              ADD
+            </Button>
+          ) : (
+            <Button htmlType='submit' type='primary' icon={<SearchOutlined />}>
+              SEARCH
+            </Button>
+          )}
         </Form.Item>
       </Form>
     </>

@@ -25,3 +25,8 @@ export const isSelectState = atom({
   key: 'isSelect',
   default: '',
 });
+
+export const clearSearchState = atom({
+  key: 'clearSearch',
+  default: false,
+});

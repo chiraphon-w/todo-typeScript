@@ -1,31 +1,35 @@
-import { Typography, Select } from 'antd';
+import { Typography, Select, Button } from 'antd';
 import TodoForm from '@/components/TodoForm';
-import React, { useState } from 'react';
+import React from 'react';
 import TodoCard from '@/components/TodoCard';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   inputSearchState,
   isSelectState,
   todoState,
+  clearSearchState,
 } from '@/components/recoil/atom';
 import { totalState } from '@/components/recoil/selector';
 import { TodoProps } from '@/components/types/index';
 import dateTime from '@/components/dateTime';
 
-
 export default function Home() {
+  const { Text, Title } = Typography;
+
   const [todoList, setTodoList] = useRecoilState(todoState);
   const [select, setSelect] = useRecoilState(isSelectState);
 
   const [inputSearch, setInputSearch] = useRecoilState(inputSearchState);
+  const [clearSearch, setClearSearch] = useRecoilState(clearSearchState);
+  const totalTodo = useRecoilValue(totalState);
+
   const { Option } = Select;
-  
 
   const searchTodo = (value: string) => {
     setInputSearch(value);
-    console.log('value', value);
     if (value === '') {
       setInputSearch('');
+      setClearSearch(!clearSearch);
     }
   };
 
@@ -63,10 +67,7 @@ export default function Home() {
     }
   };
 
- 
-
   function handleChange(value: string) {
-    console.log(`selected : ${value}`);
     setSelect(value);
   }
 
@@ -87,6 +88,17 @@ export default function Home() {
           <Option value='completed'>Complete</Option>
           <Option value='uncompleted'>Uncompleted</Option>
         </Select>
+
+        <Button
+          danger
+          type='text'
+          onClick={() => {
+            searchTodo('');
+          }}
+        >
+          Clear Search
+        </Button>
+        <Text>Total Todo : {JSON.stringify(totalTodo.total)} | Completed : {JSON.stringify(totalTodo.completed)} | Uncompleted : {JSON.stringify(totalTodo.uncompleted)}</Text>
         <TodoCard onDelete={deleteTodo} onCheck={checkTodo} />
       </div>
     </>

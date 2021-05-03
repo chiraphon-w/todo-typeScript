@@ -14,11 +14,10 @@ import _ from 'lodash';
 import dateTime from './dateTime';
 
 const TodoCard = ({ onDelete, onCheck }: any) => {
-  const { Text, Link } = Typography;
+  const { Text, Title } = Typography;
   const [todoList, setTodoList] = useRecoilState(todoState);
   const { Meta } = Card;
   const [modalActiveEdit, setModalActiveEdit] = useRecoilState(editState);
-  // const [form] = Form.useForm();
   const todoSearch = useRecoilValue(todoSearchState);
   const [modalEditContent, setModalEditContent] = useState<JSX.Element>();
 
@@ -26,7 +25,7 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
     onDelete(todo);
   };
   const handleEidt = (todo: TodoProps) => {
-    setModalEditContent(<EditTodo todo={todo} onEdit={editTodo}/>);
+    setModalEditContent(<EditTodo todo={todo} onEdit={editTodo} />);
   };
   const handleCheck = (todo: TodoProps) => {
     onCheck(todo);
@@ -45,7 +44,6 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
     setTodoList(newData);
   };
 
-
   return (
     <>
       {todoSearch.map((todo: TodoProps) => {
@@ -63,27 +61,21 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
                 onClick={() => {
                   setModalActiveEdit(true);
                   handleEidt(todo);
-                  // form.setFieldsValue({
-                  //   title: todo.value,
-                  //   id: todo.id,
-                  // });
                 }}
               />,
               <DeleteOutlined key='delete' onClick={() => handleDlete(todo)} />,
             ]}
           >
-            <Meta
-              title={
-                todo.completed ? (
-                  <Text delete type='secondary'>
-                    {todo.value}
-                  </Text>
-                ) : (
-                  todo.value
-                )
-              }
-              description={todo.date}
-            />
+            <Title level={5}>
+              {todo.completed ? (
+                <Text delete type='danger'>
+                  {todo.value}
+                </Text>
+              ) : (
+                todo.value
+              )}
+            </Title>
+            <Meta description={todo.date}/>
           </Card>
         );
       })}
@@ -93,34 +85,3 @@ const TodoCard = ({ onDelete, onCheck }: any) => {
 };
 
 export default TodoCard;
-
-// {todoList.map((todo: TodoProps) => {
-//   return (
-//     <Modal
-//       title='Edit Todo'
-//       key={todo.id}
-//       visible={modalActiveEdit}
-//       onCancel={handleCancel}
-//       footer={[
-//         <Button form='myForm' key='submit' htmlType='submit'>
-//           ADD
-//         </Button>,
-//       ]}
-//     >
-//       <Form
-//         onFinish={handleEidt}
-//         form={form}
-//         layout='inline'
-//         id='myForm'
-//         initialValues={{ remember: todo.value }}
-//       >
-//         <Form.Item name='id'>
-//           <Input type='hidden' />
-//         </Form.Item>
-//         <Form.Item name='title'>
-//           <Input placeholder='Enter text' />
-//         </Form.Item>
-//       </Form>
-//     </Modal>
-//   );
-// })}
