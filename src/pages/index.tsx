@@ -12,6 +12,7 @@ import {
 import { totalState } from '@/components/recoil/selector';
 import { TodoProps } from '@/components/types/index';
 import dateTime from '@/components/dateTime';
+import Head from 'next/head';
 
 export default function Home() {
   const { Text, Title } = Typography;
@@ -73,6 +74,12 @@ export default function Home() {
 
   return (
     <>
+      <div>
+      <Head>
+        <title>TodoList</title>
+      </Head>
+      </div>
+
       <div className='w-full max-w-4xl mx-auto p-5'>
         <h1 className='text-4xl font-bold'>TodoList</h1>
         <div className='flex p-5'>
@@ -98,7 +105,11 @@ export default function Home() {
         >
           Clear Search
         </Button>
-        <Text>Total Todo : {JSON.stringify(totalTodo.total)} | Completed : {JSON.stringify(totalTodo.completed)} | Uncompleted : {JSON.stringify(totalTodo.uncompleted)}</Text>
+        <Text>
+          Total Todo : {JSON.stringify(totalTodo.total)} | Completed :{' '}
+          {JSON.stringify(totalTodo.completed)} | Uncompleted :{' '}
+          {JSON.stringify(totalTodo.uncompleted)}
+        </Text>
         <TodoCard onDelete={deleteTodo} onCheck={checkTodo} />
       </div>
     </>
