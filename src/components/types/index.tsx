@@ -15,3 +15,8 @@ export interface TodoEditProps {
   todo: TodoProps;
   onEdit: (newId: number, newValue: string) => void;
 }
+
+export interface TodoCardProps {
+  onDelete: (todo: TodoProps) => void;
+  onCheck: (todo: TodoProps) => void;
+}

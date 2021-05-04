@@ -9,7 +9,7 @@ const dateTime = (): string => {
     minute: '2-digit',
     second: '2-digit',
   }).format(d);
-  return (realTime = `Add on ${mo} ${da}, ${ye}, ${hms}`);
+  return (realTime = `last update on ${mo} ${da}, ${ye}, ${hms}`);
 };
 
 export default dateTime;

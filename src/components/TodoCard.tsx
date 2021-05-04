@@ -6,14 +6,14 @@ import {
 import { Card, Typography } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { editState, todoState } from '@/components/recoil/atom';
-import { TodoProps } from '@/components/types/index';
+import { TodoCardProps, TodoProps } from '@/components/types/index';
 import { todoSearchState } from './recoil/selector';
 import { useState } from 'react';
 import TodoEdit from '@/components/TodoEdit';
 import _ from 'lodash';
 import dateTime from './dateTime';
 
-const TodoCard = ({ onDelete, onCheck }: any) => {
+const TodoCard = ({ onDelete, onCheck }: TodoCardProps) => {
   const { Text, Title } = Typography;
   const [todoList, setTodoList] = useRecoilState(todoState);
   const { Meta } = Card;

@@ -43,7 +43,7 @@ export default function Home() {
       date: dateTime(),
     };
 
-    setTodoList([...todoList, data]);
+    setTodoList([data, ...todoList]);
   };
 
   const deleteTodo = (todo: TodoProps) => {
