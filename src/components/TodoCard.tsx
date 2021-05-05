@@ -6,14 +6,19 @@ import {
 import { Card, Typography } from 'antd';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { editState, todoState } from '@/components/recoil/atom';
-import { TodoCardProps, TodoProps } from '@/components/types/index';
+import { TodoProps } from '@/components/types/index';
 import { todoSearchState } from './recoil/selector';
 import { useState } from 'react';
 import TodoEdit from '@/components/TodoEdit';
 import _ from 'lodash';
 import dateTime from './dateTime';
 
-const TodoCard = ({ onDelete, onCheck }: TodoCardProps) => {
+export interface TodoCardProps {
+  onDelete: (todo: TodoProps) => void;
+  onCheck: (todo: TodoProps) => void;
+}
+
+const TodoCard: React.FC<TodoCardProps> = ({ onDelete, onCheck }) => {
   const { Text, Title } = Typography;
   const [todoList, setTodoList] = useRecoilState(todoState);
   const { Meta } = Card;

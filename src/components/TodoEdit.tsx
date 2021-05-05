@@ -2,9 +2,14 @@ import React, { useEffect } from 'react';
 import { Input, Button, Form, Modal, Space } from 'antd';
 import { editState } from './recoil/atom';
 import { useRecoilState } from 'recoil';
-import { TodoEditProps } from '@/components/types/index';
+import { TodoProps } from '@/components/types/index';
 
-const EditTodo = ({ todo, onEdit }: TodoEditProps) => {
+export interface TodoEditProps {
+  todo: TodoProps;
+  onEdit: (newId: number, newValue: string) => void;
+}
+
+const EditTodo: React.FC<TodoEditProps> = ({ todo, onEdit }) => {
   const [modalActiveEdit, setModalActiveEdit] = useRecoilState(editState);
   const [form] = Form.useForm();
 

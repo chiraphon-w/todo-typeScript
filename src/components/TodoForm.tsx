@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Radio } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { TodoFormProps } from '@/components/types/index';
 import { useRecoilState } from 'recoil';
 import { clearSearchState } from './recoil/atom';
+
+export interface TodoFormProps {
+  addTodo?: (value: string) => void;
+  searchTodo?: (value: string) => void;
+  type: string;
+}
 
 const TodoForm: React.FC<TodoFormProps> = ({ addTodo, searchTodo, type }) => {
   const [form] = Form.useForm();
